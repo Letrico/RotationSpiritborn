@@ -4,7 +4,7 @@ if local_player == nil then
 end
 
 local character_id = local_player:get_character_class_id();
-local is_spiritborn = character_id == 6;
+local is_spiritborn = character_id == 7;
 if not is_spiritborn then
      return
 end;
