@@ -14,7 +14,7 @@ local function menu()
     end
 end
 
-local spell_id_rock_splitter = 1834476;
+local spell_id_rock_splitter = 1817045;
 
 local spell_data_rock_splitter = spell_data:new(
     0.2,                        -- radius

@@ -15,7 +15,7 @@ local function menu()
     end
 end
 
-local spell_id_withering_fist = 1834476;
+local spell_id_withering_fist = 1834471;
 
 local spell_data_withering_fist = spell_data:new(
     0.2,                        -- radius

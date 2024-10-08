@@ -15,7 +15,7 @@ local function menu()
     end
 end
 
-local spell_id_thrash = 1834476;
+local spell_id_thrash = 1834473;
 
 local spell_data_thrash = spell_data:new(
     0.2,                        -- radius
