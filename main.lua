@@ -234,7 +234,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.rock_splitter.logics(entity_list) then
+    if spells.rock_splitter.logics(closest_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
@@ -279,7 +279,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.thrash.logics(entity_list) then
+    if spells.thrash.logics(closest_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
@@ -304,7 +304,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.withering_fist.logics(entity_list) then
+    if spells.withering_fist.logics(closest_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
