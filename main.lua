@@ -281,7 +281,7 @@ on_update(function ()
     end;
 
     if spells.quill_volley.logics(best_target) then
-        cast_end_time = current_time + 0.2;
+        cast_end_time = current_time + 0.01;
         return;
     end;
 
@@ -300,12 +300,12 @@ on_update(function ()
         return;
     end;
 
-    if spells.rock_splitter.logics(closest_target) then
+    if spells.rock_splitter.logics(best_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
 
-    if spells.rushing_claw.logics(entity_list, target_selector_data, best_target, closest_target) then
+    if spells.rushing_claw.logics(best_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
@@ -345,7 +345,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.thrash.logics(closest_target) then
+    if spells.thrash.logics(best_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;

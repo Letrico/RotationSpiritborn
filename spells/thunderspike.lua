@@ -23,8 +23,8 @@ end
 local spell_id_thunderspike = 1834476;
 
 local spell_data_thunderspike = spell_data:new(
-    0.2,                        -- radius
-    1.5,                        -- range (increased from 0.2 to 1.5)
+    1.0,                        -- radius
+    3.0,                        -- range (increased from 0.2 to 1.5)
     0.4,                        -- cast_delay
     0.3,                        -- projectile_speed
     true,                       -- has_collision
@@ -32,7 +32,7 @@ local spell_data_thunderspike = spell_data:new(
     spell_geometry.rectangular, -- geometry_type
     targeting_type.targeted     -- targeting_type
 )
-local next_time_allowed_cast = 0.2;
+local next_time_allowed_cast = 0.0;
 
 local function logics(target)
     
