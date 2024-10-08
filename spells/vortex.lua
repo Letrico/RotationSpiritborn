@@ -9,7 +9,7 @@ local vortex_menu_elements =
 
 local function menu()
 
-    if vortex_menu_elements.main_tab:push("Voctex") then
+    if vortex_menu_elements.main_tab:push("Vortex") then
         vortex_menu_elements.main_boolean:render("Enable Spell", "")
  
          if vortex_menu_elements.main_boolean:get() then

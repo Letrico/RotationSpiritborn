@@ -21,13 +21,13 @@ local spell_id_thunderspike = 1834476;
 
 local spell_data_thunderspike = spell_data:new(
     0.2,                        -- radius
-    1.5,                        -- range
-    0.2,                        -- cast_delay
-    3.0,                        -- projectile_speed
+    0.2,                        -- range
+    0.4,                        -- cast_delay
+    0.3,                        -- projectile_speed
     true,                           -- has_collision
     spell_id_thunderspike,           -- spell_id
     spell_geometry.rectangular,          -- geometry_type
-    targeting_type.skillshot            --targeting_type
+    targeting_type.targeted    --targeting_type
 )
 local next_time_allowed_cast = 0.0;
 local function logics(target)

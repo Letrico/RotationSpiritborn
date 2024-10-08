@@ -25,7 +25,7 @@ local quill_volley_spell_data = spell_data:new(
     true,                      -- has_collision
     spell_id_quill_volley ,              -- spell_id
     spell_geometry.rectangular, -- geometry_type
-    targeting_type.targeted    --targeting_type
+    targeting_type.skillshot            --targeting_type
 )
 local next_time_allowed_cast = 0.0;
 local function logics(target)
@@ -43,7 +43,7 @@ local function logics(target)
     if cast_spell.target(target, quill_volley_spell_data, false) then
 
         local current_time = get_time_since_inject();
-        next_time_allowed_cast = current_time + 0.1;
+        next_time_allowed_cast = current_time + 0.3;
 
         console.print("Casted Quill Volley");
         return true;

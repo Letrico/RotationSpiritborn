@@ -10,7 +10,7 @@ local menu_elements_withering_fist_base =
 
 local function menu()
     
-    if menu_elements_withering_fist_base.tree_tab:push("Lunging Strike")then
+    if menu_elements_withering_fist_base.tree_tab:push("Withering Fist")then
         menu_elements_withering_fist_base.main_boolean:render("Enable Spell", "")
 
         if menu_elements_withering_fist_base.main_boolean:get() then
