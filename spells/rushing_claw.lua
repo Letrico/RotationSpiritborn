@@ -201,7 +201,7 @@ local function get_space_target(entity_list, target_selector_data, best_target, 
     return nil
 end
 
-local function logics(entity_list, target_selector_data, best_target, closest_target)
+local function logics(entity_list, target_selector_data, best_target, get_closest_target)
     
     local menu_boolean = menu_elements_rushing_claw_base.main_boolean:get();
     local is_logic_allowed = my_utility.is_spell_allowed(
@@ -214,16 +214,16 @@ local function logics(entity_list, target_selector_data, best_target, closest_ta
     end;
 
     local player_position = get_player_position();
-    local closer_target_position = closest_target:get_position();
-    local distance_sqr_close = closer_target_position:squared_dist_to_ignore_z(player_position)
-
+    local max_range = menu_elements_rushing_claw_base.spell_range:get()
+    local closest = get_closest_target(player_position, entity_list, max_range)
+    
     local target = nil
     local is_area = menu_elements_rushing_claw_base.cast_mode:get() == 0
     if is_area then
 
         local trigger_range =  menu_elements_rushing_claw_base.trigger_range_area:get()
         if trigger_range > 0.0 then
-            if distance_sqr_close > (trigger_range * trigger_range) and trigger_range > 0.0 then
+            if closest:squared_dist_to_ignore_z(player_position) > (trigger_range * trigger_range) and trigger_range > 0.0 then
                 if debug_console then
                     console.print("rushing claw no trigger close (area)")
                 end
@@ -231,7 +231,7 @@ local function logics(entity_list, target_selector_data, best_target, closest_ta
             end
         end
 
-        local target_to_cast = get_area_target(entity_list, target_selector_data, best_target, closest_target)
+        local target_to_cast = get_area_target(entity_list, target_selector_data, best_target, closest)
         if not target_to_cast then
             return false
         end
@@ -240,7 +240,7 @@ local function logics(entity_list, target_selector_data, best_target, closest_ta
 
         local trigger_range =  menu_elements_rushing_claw_base.trigger_range_space:get()
         if trigger_range > 0.0 then
-            if distance_sqr_close > (trigger_range * trigger_range) and trigger_range > 0.0 then
+            if closest:squared_dist_to_ignore_z(player_position) > (trigger_range * trigger_range) and trigger_range > 0.0 then
                 if debug_console then
                     console.print("rushing claw no trigger close (area)")
                 end
@@ -248,7 +248,7 @@ local function logics(entity_list, target_selector_data, best_target, closest_ta
             end
         end
 
-        local target_to_cast = get_space_target(entity_list, target_selector_data, best_target, closest_target)
+        local target_to_cast = get_space_target(entity_list, target_selector_data, best_target, closest)
         if not target_to_cast then
             return false
         end

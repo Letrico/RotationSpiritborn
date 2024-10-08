@@ -40,14 +40,27 @@ local function logics(target)
         return false;
     end;
 
-    if cast_spell.target(target, quill_volley_spell_data, false) then
+    local player_position = get_player_position();
+    if player_position then
+        local target_position = target:get_position();
+        
+        if target_position then
+            local distance = player_position:dist_to_ignore_z(target_position);
+            
+            if distance > 2.5 then
+                pathfinder.request_move(target_position);
+                return false;
+            end
 
-        local current_time = get_time_since_inject();
-        next_time_allowed_cast = current_time + 0.3;
+            if cast_spell.target(target, quill_volley_spell_data, false) then
+                local current_time = get_time_since_inject();
+                next_time_allowed_cast = current_time + 0.3;
 
-        console.print("Casted Quill Volley");
-        return true;
-    end;
+                console.print("Casted Quill Volley");
+                return true;
+            end
+        end
+    end
             
     return false;
 end
