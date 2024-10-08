@@ -56,7 +56,7 @@ on_render_menu(function ()
       return;
     end;
  
-
+    normal_monster_threshold:render("Normal Monster Threshold", "Threshold for considering normal monsters in target selection")
     spells.armored_hide.menu()
     spells.concussive_stomp.menu()
     spells.counterattack.menu()
@@ -81,7 +81,6 @@ on_render_menu(function ()
     spells.toxic_skin.menu()
     spells.vortex.menu()
     spells.withering_fist.menu()
-    normal_monster_threshold:render("Normal Monster Threshold", "Threshold for considering normal monsters in target selection")
     menu.main_tree:pop();
 
 end)
