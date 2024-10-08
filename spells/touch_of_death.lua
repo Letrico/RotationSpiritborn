@@ -15,7 +15,7 @@ local function menu()
     end
 end
 
-local spell_id_touch_of_death = 416337
+local spell_id_touch_of_death = 1871809
 local next_time_allowed_cast = 0.0;
 local touch_of_death_data = spell_data:new(
     0.3,                                -- radius
