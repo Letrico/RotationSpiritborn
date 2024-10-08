@@ -142,8 +142,6 @@ on_update(function ()
         max_range = 12.0;
     end
 
-    local best_target = target_selector_data.closest_unit;
-
     local best_target = my_target_selector.get_best_weighted_target(entity_list)
     local closest_target = target_selector_data.closest_unit;
 
@@ -286,7 +284,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.thunderspike.logics(entity_list) then
+    if spells.thunderspike.logics(closest_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;

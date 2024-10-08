@@ -277,7 +277,7 @@ local function logics(entity_list, target_selector_data, best_target, closest_ta
     if cast_spell.target(target, spell_data_rushing_claw, false) then
 
         local current_time = get_time_since_inject();
-        next_time_allowed_cast = current_time + 0.5;
+        next_time_allowed_cast = current_time + 3.0;
 
         console.print("Casted Rushing Claw");
         return true;
