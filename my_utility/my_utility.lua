@@ -229,6 +229,40 @@ local function get_best_point_rec(target_position, rectangle_radius, width, curr
     return {point = target_position, hits = current_hit_list_amount, victim_list = current_hit_list}
 end
 
+local function should_pop_cds()
+    local player_position = get_player_position();
+    local enemies = actors_manager.get_enemy_npcs();
+    local elite_units = 0;
+    local champion_units = 0;
+    local boss_units = 0;
+    local elite_positions = {};
+    local champion_positions = {};
+    local boss_positions = {};
+
+    for _, obj in ipairs(enemies) do
+        local position = obj:get_position();
+        local distance = position:dist_to(player_position);
+        local is_close = distance < 8.0;
+
+        if not is_close then
+            -- Skip this enemy and continue with the next one
+            goto continue
+        end;
+        if obj:is_elite() then
+            elite_units = elite_units + 1;
+            table.insert(elite_positions, position);
+        elseif obj:is_champion() then
+            champion_units = champion_units + 1;
+            table.insert(champion_positions, position);
+        elseif obj:is_boss() then
+            boss_units = boss_units + 1;
+            table.insert(boss_positions, position);
+        end;
+        ::continue::
+    end;
+    return elite_units, champion_units, boss_units, elite_positions, champion_positions, boss_positions
+end
+
 
 local plugin_label = "BASE_SPIRITBORN_PLUGIN_"
 
@@ -246,4 +280,5 @@ return
     is_target_within_angle = is_target_within_angle,
 
     get_best_point_rec = get_best_point_rec,
+    should_pop_cds = should_pop_cds,
 }

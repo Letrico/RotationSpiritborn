@@ -29,6 +29,79 @@
 -- game_object, lowest max health boss
 -- game_object, highest max health boss
 
+local function get_unit_weight(unit)
+    local score = 0
+    local debuff_priorities = {
+        [391682] = 1,       -- Inner Sight
+        [39809] = 2,        -- Generic Crowd Control
+        [290962] = 800,     -- Frozen
+        [1285259] = 400,    -- Trapped
+        [356162] = 400      -- Smoke Bomb
+    }
+    
+    local buffs = unit:get_buffs()
+    if buffs then
+        for i, debuff in ipairs(buffs) do
+            local debuff_hash = debuff.name_hash
+            local debuff_score = debuff_priorities[debuff_hash]
+            if debuff_score then
+                score = score + debuff_score
+                -- console.print("Match found: debuff_score for hash " .. debuff_hash .. " is " .. debuff_score)
+            end
+        end
+    end
+
+    local max_health = unit:get_max_health()
+    local current_health = unit:get_current_health()
+    local health_percentage = current_health / max_health
+    local is_fresh = health_percentage >= 1.0
+
+    local is_vulnerable = unit:is_vulnerable()
+    if is_vulnerable then
+        score = score + 10000
+    end
+
+    if not is_vulnerable and is_fresh then
+        score = score + 6000
+    end
+
+    local is_champion = unit:is_champion()
+    if is_champion then
+        if is_fresh then
+            score = score + 20000
+        else
+            score = score + 5000
+        end
+    end
+
+    local is_champion = unit:is_elite()
+    if is_champion then
+        score = score + 400
+    end
+
+    return score
+end
+
+-- Define the function to get the best weighted target
+local function get_best_weighted_target(entity_list)
+    local highest_score = -1
+    local best_target = nil
+    
+    -- Iterate over all entities in the list
+    for _, unit in ipairs(entity_list) do
+        -- Calculate the score for each unit
+        local score = get_unit_weight(unit)
+        
+        -- Update the best target if this unit's score is higher than the current highest
+        if score > highest_score then
+            highest_score = score
+            best_target = unit
+        end
+    end
+
+    return best_target
+end
+
 local function get_target_selector_data(source, list)
     local is_valid = false;
 
@@ -444,4 +517,7 @@ return
     is_valid_area_spell_smart = is_valid_area_spell_smart,
     is_valid_area_spell_percentage = is_valid_area_spell_percentage,
     is_valid_area_spell_aio = is_valid_area_spell_aio,
+
+    get_unit_weight = get_unit_weight,
+    get_best_weighted_target = get_best_weighted_target,
 }

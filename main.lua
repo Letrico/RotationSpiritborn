@@ -144,6 +144,9 @@ on_update(function ()
 
     local best_target = target_selector_data.closest_unit;
 
+    local best_target = my_target_selector.get_best_weighted_target(entity_list)
+    local closest_target = target_selector_data.closest_unit;
+
     if target_selector_data.has_elite then
         local unit = target_selector_data.closest_elite;
         local unit_position = unit:get_position();
@@ -238,7 +241,7 @@ on_update(function ()
         return;
     end;
 
-    if spells.rushing_claw.logics(best_target) then
+    if spells.rushing_claw.logics(entity_list, target_selector_data, best_target, closest_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;

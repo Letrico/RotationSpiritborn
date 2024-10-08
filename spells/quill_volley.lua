@@ -19,7 +19,7 @@ local spell_id_quill_volley = 1519048;
 
 local quill_volley_spell_data = spell_data:new(
     4.0,                        -- radius
-    4.0,                        -- range
+    2.5,                        -- range
     0.4,                        -- cast_delay
     1.0,                        -- projectile_speed
     true,                      -- has_collision

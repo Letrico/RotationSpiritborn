@@ -27,7 +27,7 @@ local function menu()
     end
 end
 
-local the_seeker_spell_id = 1663210
+local the_seeker_spell_id = 1663204
 
 local last_the_seeker_cast_time = 0.0
 local function logics()
@@ -37,7 +37,6 @@ local function logics()
                 menu_boolean, 
                 last_the_seeker_cast_time, 
                 the_seeker_spell_id);
-
     if not is_logic_allowed then
         return false;
     end;
