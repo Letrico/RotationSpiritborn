@@ -17,8 +17,6 @@ end
 
 local spell_id_thunderspike = 1834476;
 
-
-
 local spell_data_thunderspike = spell_data:new(
     0.2,                        -- radius
     0.2,                        -- range
