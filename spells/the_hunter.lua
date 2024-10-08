@@ -89,7 +89,7 @@ local function logics()
     if cast_spell.position(the_hunter_spell_id, best_cast_position, 0.40) then
         
         local current_time = get_time_since_inject();
-        last_the_hunter_cast_time = current_time + value;
+        last_the_hunter_cast_time = current_time + 1.2;
         console.print("Casted The Hunter, Target " .. best_target:get_skin_name() .. " Hits: " .. best_cast_hits);
         
         return true;
