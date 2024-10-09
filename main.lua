@@ -280,10 +280,17 @@ on_update(function ()
         return;
     end;
 
-    if spells.quill_volley.logics(best_target) then
-        cast_end_time = current_time + 0.01;
-        return;
-    end;
+    -- Updated Quill Volley logic to use closest target
+    if entity_list then
+        local closest_quill_volley_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_quill_volley_target and spells.quill_volley.logics(closest_quill_volley_target) then
+            cast_end_time = current_time + 0.01;
+            return;
+        end;
+    else
+        console.print("Warning: entity_list is nil, skipping quill volley")
+    end
 
     if spells.rake.logics(best_target) then
         cast_end_time = current_time + 0.2;
@@ -300,10 +307,17 @@ on_update(function ()
         return;
     end;
 
-    if spells.rock_splitter.logics(best_target) then
-        cast_end_time = current_time + 0.2;
-        return;
-    end;
+    -- New logic for Rock Splitter, adapted from Thunderspike
+    if entity_list then
+        local closest_rock_splitter_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_rock_splitter_target and spells.rock_splitter.logics(closest_rock_splitter_target) then
+            cast_end_time = current_time + 0.4;
+            return;
+        end;
+    else
+        console.print("Warning: entity_list is nil, skipping rock splitter")
+    end
 
     if spells.rushing_claw.logics(best_target) then
         cast_end_time = current_time + 0.2;
@@ -345,10 +359,17 @@ on_update(function ()
         return;
     end;
 
-    if spells.thrash.logics(best_target) then
-        cast_end_time = current_time + 0.2;
-        return;
-    end;
+    -- New logic for Thrash, adapted from Rock Splitter and Thunderspike
+    if entity_list then
+        local closest_thrash_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_thrash_target and spells.thrash.logics(closest_thrash_target) then
+            cast_end_time = current_time + 0.04;
+            return;
+        end;
+    else
+        console.print("Warning: entity_list is nil, skipping thrash")
+    end
 
     -- New logic for Thunderspike, adapted from Maul
     if entity_list then
@@ -523,6 +544,30 @@ on_render(function ()
             local thunderspike_target_position_2d = graphics.w2s(thunderspike_target_position);
             graphics.line(thunderspike_target_position_2d, player_screen_position, color_blue(180), 2.5)
             graphics.circle_3d(thunderspike_target_position, 0.80, color_blue(200), 2.0);
+        end
+    end
+
+    -- New visualization for Rock Splitter target
+    if entity_list then
+        local closest_rock_splitter_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_rock_splitter_target then
+            local rock_splitter_target_position = closest_rock_splitter_target:get_position();
+            local rock_splitter_target_position_2d = graphics.w2s(rock_splitter_target_position);
+            graphics.line(rock_splitter_target_position_2d, player_screen_position, color_green(180), 2.5)
+            graphics.circle_3d(rock_splitter_target_position, 0.80, color_green(200), 2.0);
+        end
+    end
+
+    -- New visualization for Thrash target
+    if entity_list then
+        local closest_thrash_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_thrash_target then
+            local thrash_target_position = closest_thrash_target:get_position();
+            local thrash_target_position_2d = graphics.w2s(thrash_target_position);
+            graphics.line(thrash_target_position_2d, player_screen_position, color_yellow(180), 2.5)
+            graphics.circle_3d(thrash_target_position, 0.80, color_yellow(200), 2.0);
         end
     end
 
