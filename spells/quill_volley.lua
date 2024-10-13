@@ -52,6 +52,12 @@ local function logics(target)
                 return false;
             end
 
+            -- Check for wall collision using the target
+            local is_wall_collision = prediction.is_wall_collision(player_position, target_position, 0.15)
+            if is_wall_collision then
+                return false
+            end
+
             if cast_spell.target(target, quill_volley_spell_data, false) then
                 local current_time = get_time_since_inject();
                 next_time_allowed_cast = current_time + 0.03;
