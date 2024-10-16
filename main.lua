@@ -106,7 +106,7 @@ local boss_value = 20
 
 -- Cache for heavy function results
 local last_check_time = 0.0 -- Time of last check for most hits
-local check_interval = 1.0 -- 1 second cooldown between checks
+local check_interval = 0.01 -- 1 second cooldown between checks
 
 local function check_and_update_best_target(unit, player_position, max_range)
     local unit_position = unit:get_position()
@@ -255,6 +255,18 @@ on_update(function ()
         return
     end
 
+    -- Updated Quill Volley logic to use closest target
+    if entity_list then
+        local closest_quill_volley_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_quill_volley_target and spells.quill_volley.logics(closest_quill_volley_target) then
+            cast_end_time = current_time + 0.001;
+            return;
+        end;
+    else
+        console.print("Warning: entity_list is nil, skipping quill volley")
+    end
+
     if spells.armored_hide.logics() then
         cast_end_time = current_time + 0.2;
         return;
@@ -280,17 +292,7 @@ on_update(function ()
         return;
     end;
 
-    -- Updated Quill Volley logic to use closest target
-    if entity_list then
-        local closest_quill_volley_target = closest_target(player_position, entity_list, max_range)
-        
-        if closest_quill_volley_target and spells.quill_volley.logics(closest_quill_volley_target) then
-            cast_end_time = current_time + 0.01;
-            return;
-        end;
-    else
-        console.print("Warning: entity_list is nil, skipping quill volley")
-    end
+
 
     if spells.rake.logics(best_target) then
         cast_end_time = current_time + 0.2;
