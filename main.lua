@@ -260,7 +260,7 @@ on_update(function ()
         local closest_quill_volley_target = closest_target(player_position, entity_list, max_range)
         
         if closest_quill_volley_target and spells.quill_volley.logics(closest_quill_volley_target) then
-            cast_end_time = current_time + 0.01;
+            cast_end_time = current_time + 0.001;
             return;
         end;
     else
