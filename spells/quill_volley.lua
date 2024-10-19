@@ -20,7 +20,7 @@ local spell_id_quill_volley = 1519048;
 local quill_volley_spell_data = spell_data:new(
     4.0,                        -- radius
     6.0,                        -- range
-    0.001,                        -- cast_delay
+    0.1,                        -- cast_delay
     1.0,                        -- projectile_speed
     false,                      -- has_collision
     spell_id_quill_volley ,              -- spell_id
@@ -28,6 +28,20 @@ local quill_volley_spell_data = spell_data:new(
     targeting_type.skillshot            --targeting_type
 )
 local next_time_allowed_cast = 0.0;
+
+local function is_ravager_active()
+    local local_player = get_local_player()
+    local buffs = local_player:get_buffs()
+   
+    for i, buff in ipairs(buffs) do
+        if buff.name_hash == 1862773 then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function logics(target)
     
     local menu_boolean = menu_elements_quill_volley_base.main_boolean:get();
@@ -47,7 +61,8 @@ local function logics(target)
         if target_position then
             local distance = player_position:dist_to_ignore_z(target_position);
             
-            if distance > 5.0 then
+            -- If ravager active, don't bother walking
+            if distance > 5.0 and not is_ravager_active() then
                 pathfinder.request_move(target_position);
                 return false;
             end
