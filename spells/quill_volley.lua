@@ -20,7 +20,7 @@ local spell_id_quill_volley = 1519048;
 local quill_volley_spell_data = spell_data:new(
     4.0,                        -- radius
     6.0,                        -- range
-    0.1,                        -- cast_delay
+    0.05,                        -- cast_delay
     1.0,                        -- projectile_speed
     false,                      -- has_collision
     spell_id_quill_volley ,              -- spell_id
@@ -75,7 +75,7 @@ local function logics(target)
 
             if cast_spell.target(target, quill_volley_spell_data, false) then
                 local current_time = get_time_since_inject();
-                next_time_allowed_cast = current_time + 0.1;
+                next_time_allowed_cast = current_time + 0.05;
 
                 console.print("Casted Quill Volley");
                 return true;
