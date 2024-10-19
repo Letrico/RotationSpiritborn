@@ -4,7 +4,7 @@ local menu_elements_armored_hide =
 {
     tree_tab              = tree_node:new(1),
     main_boolean          = checkbox:new(true, get_hash(my_utility.plugin_label .. "main_boolean_armored_hide")),
-    hp_usage_shield       = slider_float:new(0.0, 1.0, 0.30, get_hash(my_utility.plugin_label .. "%_in_which_shield_will_cast"))
+    armored_hide_hp_threshold = slider_float:new(0.0, 1.0, 1.0, get_hash(my_utility.plugin_label .. "armored_hide_hp_threshold"))
 }
 
 local function menu()
@@ -12,7 +12,7 @@ local function menu()
         menu_elements_armored_hide.main_boolean:render("Enable Spell", "")
 
        if menu_elements_armored_hide.main_boolean:get() then
-        menu_elements_armored_hide.hp_usage_shield:render("Min cast HP Percent", "", 2)
+        menu_elements_armored_hide.armored_hide_hp_threshold:render("Min cast HP Percent", "", 2)
        end
 
        menu_elements_armored_hide.tree_tab:pop()
@@ -37,9 +37,9 @@ local function logics()
     local player_current_health = local_player:get_current_health();
     local player_max_health = local_player:get_max_health();
     local health_percentabe = player_current_health / player_max_health;
-    local menu_min_percentage = menu_elements_armored_hide.hp_usage_shield:get();
+    local menu_min_percentage = menu_elements_armored_hide.armored_hide_hp_threshold:get();
 
-    if health_percentabe > menu_min_percentage and menu_elements_armored_hide.hp_usage_shield:get() < 1.0 then
+    if health_percentabe > menu_min_percentage and menu_elements_armored_hide.armored_hide_hp_threshold:get() < 1.0 then
         return false;
     end;
 

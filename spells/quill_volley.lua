@@ -19,10 +19,10 @@ local spell_id_quill_volley = 1519048;
 
 local quill_volley_spell_data = spell_data:new(
     4.0,                        -- radius
-    4.0,                        -- range
-    0.4,                        -- cast_delay
+    6.0,                        -- range
+    0.1,                        -- cast_delay
     1.0,                        -- projectile_speed
-    true,                      -- has_collision
+    false,                      -- has_collision
     spell_id_quill_volley ,              -- spell_id
     spell_geometry.rectangular, -- geometry_type
     targeting_type.skillshot            --targeting_type
@@ -50,6 +50,12 @@ local function logics(target)
             if distance > 5.0 then
                 pathfinder.request_move(target_position);
                 return false;
+            end
+
+            -- Check for wall collision using the target
+            local is_wall_collision = prediction.is_wall_collision(player_position, target_position, 0.15)
+            if is_wall_collision then
+                return false
             end
 
             if cast_spell.target(target, quill_volley_spell_data, false) then
