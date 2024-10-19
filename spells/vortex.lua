@@ -38,7 +38,7 @@ local function logics()
         return false;
     end;
 
-    local area_data = target_selector.get_most_hits_target_circular_area_light(get_player_position(), 4, 4, false)
+    local area_data = target_selector.get_most_hits_target_circular_area_light(get_player_position(), 6, 6, false)
     local units = area_data.n_hits
 
     if units < vortex_menu_elements.min_max_targets:get() then

@@ -75,7 +75,7 @@ local function logics(target)
 
             if cast_spell.target(target, quill_volley_spell_data, false) then
                 local current_time = get_time_since_inject();
-                next_time_allowed_cast = current_time + 0.03;
+                next_time_allowed_cast = current_time + 0.1;
 
                 console.print("Casted Quill Volley");
                 return true;

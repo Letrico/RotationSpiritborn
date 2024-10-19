@@ -260,7 +260,7 @@ on_update(function ()
         local closest_quill_volley_target = closest_target(player_position, entity_list, max_range)
         
         if closest_quill_volley_target and spells.quill_volley.logics(closest_quill_volley_target) then
-            cast_end_time = current_time + 0.001;
+            cast_end_time = current_time + 0.01;
             return;
         end;
     else
@@ -282,17 +282,22 @@ on_update(function ()
         return;
     end;
 
-    if spells.crushing_hand.logics(best_target) then
-        cast_end_time = current_time + 0.2;
-        return;
-    end;
+    -- Updated crushing_hand logic to use closest target
+    if entity_list then
+        local closest_crushing_hand_target = closest_target(player_position, entity_list, max_range)
+        
+        if closest_crushing_hand_target and spells.crushing_hand.logics(closest_crushing_hand_target) then
+            cast_end_time = current_time + 0.01;
+            return;
+        end;
+    else
+        console.print("Warning: entity_list is nil, skipping crushing hand")
+    end
 
     if spells.payback.logics(best_target) then
         cast_end_time = current_time + 0.2;
         return;
     end;
-
-
 
     if spells.rake.logics(best_target) then
         cast_end_time = current_time + 0.2;
