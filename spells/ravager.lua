@@ -44,7 +44,7 @@ local function logics()
 
     local filter_mode = menu_elements_ravager_base.filter_mode:get()
     local player_pos = get_player_position()
-    local area_data = target_selector.get_most_hits_target_circular_area_light(player_pos, 5.00, 5.00, false)
+    local area_data = target_selector.get_most_hits_target_circular_area_light(player_pos, 8.00, 8.00, false)
     local units = area_data.n_hits
     local elite_units, champion_units, boss_units = my_utility.should_pop_cds()
 
